@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Jouet{% endblock %}
+
+{% block body %}
+    <h1>Create new Jouet</h1>
+
+    {{ include('jouet/_form.html.twig') }}
+
+    <a href="{{ path('jouet_index') }}">back to list</a>
+{% endblock %}

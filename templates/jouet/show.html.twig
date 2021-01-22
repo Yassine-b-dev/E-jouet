@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Jouet{% endblock %}
+
+{% block body %}
+    <h1>Jouet</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ jouet.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom_jouet</th>
+                <td>{{ jouet.nomJouet }}</td>
+            </tr>
+            <tr>
+                <th>Prix</th>
+                <td>{{ jouet.prix }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ jouet.description }}</td>
+            </tr>
+            <tr>
+                <th>Categorie</th>
+                <td>{{ jouet.categorie }}</td>
+            </tr>
+            <tr>
+                <th>Photo</th>
+                <td>{{ jouet.photo }}</td>
+            </tr>
+            <tr>
+                <th>Stock</th>
+                <td>{{ jouet.stock }}</td>
+            </tr>
+            <tr>
+                <th>Reference</th>
+                <td>{{ jouet.reference }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('jouet_index') }}">back to list</a>
+
+    <a href="{{ path('jouet_edit', {'id': jouet.id}) }}">edit</a>
+
+    {{ include('jouet/_delete_form.html.twig') }}
+{% endblock %}
