@@ -10,7 +10,7 @@
     <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
     <!-- Title  -->
-    <title>Amado - {% block title %}Accueil{% endblock %}</title>
+    <title>E-Jouet - {% block title %}Accueil{% endblock %}</title>
 
     <!-- Favicon  -->
     <link rel="icon" href="img/core-img/favicon.ico">
@@ -77,6 +77,7 @@
                 <ul>
                     <li class="active"><a href="index.html">Accueil</a></li>
                     <li><a href="shop.html">Boutique</a></li>
+                    <li><a href="{{ path("app_inscription") }}">Inscription</a></li>
                     <li><a href="checkout.html">Paiement</a></li>
                 </ul>
             </nav>
@@ -85,6 +86,15 @@
                 
                 <a href="#" class="search-nav"><img src="img/core-img/search.png" alt=""> Rechercher</a>
                 <a href="cart.html" class="cart-nav"><img src="img/core-img/cart.png" alt=""> Panier <span>(0)</span></a>
+                
+                {% if is_granted("IS_AUTHENTICATED_FULLY") %}
+
+                <a href="#" class="cart-nav "> <div class="far fa-user"></div> Compte</a>
+                <a href="{{ path("app_logout") }}" class="cart-nav "> <div class="fas fa-sign-out-alt"></div> Déconnexion</a>
+                {% else %}
+                    <a href="{{ path("app_login") }}" class="cart-nav "> <div class="fas fa-sign-in-alt"></div> Connexion</a>
+                {% endif %}
+                
             </div>
             <!-- Button Group -->
             <div class="amado-btn-group mt-30 mb-70">
