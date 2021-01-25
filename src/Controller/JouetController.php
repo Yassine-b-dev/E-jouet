@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\ORM\EntityManagerInterface;
 
 /**
  * @Route("/jouet")
@@ -20,32 +21,38 @@ class JouetController extends AbstractController
      */
     public function index(JouetRepository $jouetRepository): Response
     {
+        $liste_jouets = $jouetRepository->findAll();
         return $this->render('jouet/index.html.twig', [
-            'jouets' => $jouetRepository->findAll(),
+            'jouets' => $liste_jouets,
         ]);
     }
 
     /**
-     * @Route("/new", name="jouet_new", methods={"GET","POST"})
+     * @Route("/ajouter", name="jouet_ajouter", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function nouveau(Request $request, EntityManagerInterface $em): Response
     {
-        $jouet = new Jouet();
-        $form = $this->createForm(JouetType::class, $jouet);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($jouet);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('jouet_index');
+        $jouet = new Jouet;
+        $formjouet = $this->createForm(JouetType::class, $jouet);
+        $formjouet->handleRequest($request);
+        if($formjouet->isSubmitted() && $formjouet->isValid())
+        {
+            if($fichier = $formjouet->get("photo")->getData())
+            {
+                $destination = $this->getParameter("dossier_images");
+                $nomFichier = pathinfo($fichier->getClientOriginalName(), PATHINFO_FILENAME);
+                $nouveauNom = str_replace(" ", "_", $nomFichier);
+                $nouveauNom .= "_" . uniqid() . "." . $fichier->guessExtension();
+                $fichier->move($destination, $nouveauNom);
+                $jouet->setPhoto($nouveauNom);
+            }
+            $em->persist($jouet);
+            $em->flush();
+            $this->addFlash("success", "Le nouveau jouet a bien été ajouté");
+            return $this->redirectToRoute("jouet_index");
         }
 
-        return $this->render('jouet/new.html.twig', [
-            'jouet' => $jouet,
-            'form' => $form->createView(),
-        ]);
+        return $this->render('jouet/ajouter.html.twig', ['formJouet' => $formJouet->createView()]);
     }
 
     /**
@@ -53,42 +60,64 @@ class JouetController extends AbstractController
      */
     public function show(Jouet $jouet): Response
     {
-        return $this->render('jouet/show.html.twig', [
+        return $this->render('jouet/fiche.html.twig', [
             'jouet' => $jouet,
         ]);
     }
 
     /**
-     * @Route("/{id}/edit", name="jouet_edit", methods={"GET","POST"})
+     * @Route("/modifier/{id}", name="jouet_modifier", methods={"GET","POST"})
      */
-    public function edit(Request $request, Jouet $jouet): Response
+    public function modifier(Request $request,EntityManagerInterface $em,JouetRepository $jr, $id): Response
     {
-        $form = $this->createForm(JouetType::class, $jouet);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('jouet_index');
+        $jouet = $jr->find($id);
+        $formJouet = $this->createForm(JouetType::class, $jouet);
+        $formJouet->handleRequest($request);
+        if($formJouet->isSubmitted() && $formJouet->isValid())
+        {
+            if($fichier = $formJouet->get("photo")->getData())
+            {
+                $destination = $this->getParameter("dossier_images");
+                $nomFichier = pathinfo($fichier->getClientOriginalName(), PATHINFO_FILENAME);
+                $nouveauNom = str_replace(" ", "_", $nomFichier);
+                $nouveauNom .= "_" . uniqid() . "." . $fichier->guessExtension();
+                $fichier->move($destination, $nouveauNom);
+                $jouet->setPhoto($nouveauNom);
+            }
+            $em->persist($jouet);
+            $em->flush();
+            $this->addFlash("success", "Le jouet a bien été modifié");
+            return $this->redirectToRoute("jouet_index");
         }
 
-        return $this->render('jouet/edit.html.twig', [
+        return $this->render('jouet/formulaire.html.twig', [
             'jouet' => $jouet,
-            'form' => $form->createView(),
+            'formJouet' => $formJouet->createView(),
         ]);
     }
 
     /**
-     * @Route("/{id}", name="jouet_delete", methods={"DELETE"})
+     * @Route("/supprimer/{id}", name="jouet_supprimer")
      */
-    public function delete(Request $request, Jouet $jouet): Response
+    public function supprimer(JouetRepository $jouetRepository,Request $request, EntityManagerInterface $em,$id): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$jouet->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($jouet);
-            $entityManager->flush();
+        $jouetAsupprimer = $jouetRepository->find($id);
+        if($request->isMethod("POST"))
+        {
+            $em->remove($jouetAsupprimer);
+            $em->flush();
+            $this->addFlash("success","Le jouet n°$id a bien été supprimé");
+            return $this->redirectToRoute("jouet_index");
+            
         }
-
-        return $this->redirectToRoute('jouet_index');
+        return $this->render("jouet/supprimer.html.twig", ["jouet" => $jouetAsupprimer]);
+    }
+    /**
+     * @Route("/fiche/{id}", name="jouet_fiche")
+     */
+    public function fiche(jouetRepository $jouetRepository, $id)
+    {
+        $jouet = $jouetRepository->find($id);
+        return $this->render("jouet/fiche.html.twig",["jouet" => $jouet]);
     }
 }

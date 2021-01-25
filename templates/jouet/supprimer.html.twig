@@ -1,0 +1,20 @@
+{% extends "base.html.twig" %}
+
+{% block h1 %} Confirmation de suppression {% endblock %}
+
+{% block body %}
+    <h3>Etes-vous sûr(e) de vouloir supprimer le jouet n°{{ jouet.id }}</h3>
+    <ul class="list-group">
+        <li class="list-group-item"><strong>Nom : </strong>{{ jouet.nomJouet }}</li>
+        <li class="list-group-item"><strong>Prix : </strong>{{ jouet.prix }}</li>
+        <li class="list-group-item"><strong>Description : </strong>{{ jouet.description }}</li>
+        <li class="list-group-item"><strong>Catégorie : </strong>{{ jouet.categorie }}</li>
+        <li class="list-group-item"><strong>Stock : </strong>{{ jouet.stock }}</li>
+        <li class="list-group-item"><strong>Référence : </strong>{{ jouet.reference }}</li>
+    </ul>
+
+    <form method="post">
+        <button type="submit" class="btn btn-success">Confirmer</button>
+        <a href="{{ path("jouet_index") }}" class="btn btn-danger">Annuler</a>
+    </form>
+{% endblock %}

@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Jouet index{% endblock %}
+{% block title %}Liste des jouets{% endblock %}
 
 {% block body %}
-    <h1>Jouet index</h1>
+    <h1>Liste des jouets</h1>
 
     <table class="table">
         <thead>
@@ -24,24 +24,29 @@
             <tr>
                 <td>{{ jouet.id }}</td>
                 <td>{{ jouet.nomJouet }}</td>
-                <td>{{ jouet.prix }}</td>
+                <td>{{ jouet.prix }} €</td>
                 <td>{{ jouet.description }}</td>
                 <td>{{ jouet.categorie }}</td>
-                <td>{{ jouet.photo }}</td>
+                <td>
+                    <img class="mini" src="{{ asset("img/" ~ jouet.photo) }}" alt="pas de photo">
+                </td>
                 <td>{{ jouet.stock }}</td>
                 <td>{{ jouet.reference }}</td>
                 <td>
-                    <a href="{{ path('jouet_show', {'id': jouet.id}) }}">show</a>
-                    <a href="{{ path('jouet_edit', {'id': jouet.id}) }}">edit</a>
+                    <a href="{{ path("jouet_fiche", {"id": jouet.id}) }}">
+                                <i class="fa fa-book"></i>
+                            </a>
+                            <a href="{{ path("jouet_modifier", {"id": jouet.id }) }}">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                            <a href="{{ path("jouet_supprimer", {"id": jouet.id }) }}">
+                                <i class="fa fa-trash"></i>
+                            </a>
                 </td>
             </tr>
-        {% else %}
-            <tr>
-                <td colspan="9">no records found</td>
-            </tr>
+
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('jouet_new') }}">Create new</a>
+    <a href="{{ path("jouet_ajouter") }}">Ajouter un jouet</a>
 {% endblock %}

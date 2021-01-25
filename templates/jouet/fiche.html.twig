@@ -17,7 +17,7 @@
             </tr>
             <tr>
                 <th>Prix</th>
-                <td>{{ jouet.prix }}</td>
+                <td>{{ jouet.prix }} €</td>
             </tr>
             <tr>
                 <th>Description</th>
@@ -29,7 +29,9 @@
             </tr>
             <tr>
                 <th>Photo</th>
-                <td>{{ jouet.photo }}</td>
+                <td>
+                    <img src="{{ asset("img/" ~ jouet.photo) }}" alt="pas de photo">
+                </td>
             </tr>
             <tr>
                 <th>Stock</th>
@@ -42,9 +44,8 @@
         </tbody>
     </table>
 
-    <a href="{{ path('jouet_index') }}">back to list</a>
+    <a href="{{ path('jouet_index') }}">Retour à la liste</a>
 
-    <a href="{{ path('jouet_edit', {'id': jouet.id}) }}">edit</a>
-
-    {{ include('jouet/_delete_form.html.twig') }}
+    <a href="{{ path('jouet_modifier', {'id': jouet.id}) }}">Modifier</a>
+    <a href="{{ path("jouet_supprimer", {"id": jouet.id }) }}">Supprimer</a>
 {% endblock %}
