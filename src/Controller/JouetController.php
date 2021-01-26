@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
 
 /**
- * @Route("/jouet")
+ * @Route("admin/jouet")
  */
 class JouetController extends AbstractController
 {
