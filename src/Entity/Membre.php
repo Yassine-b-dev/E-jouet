@@ -8,10 +8,11 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert; // gère le control de l'email vérifie si l'email corespond à exemple@mail.exemple
 
 /**
  * @ORM\Entity(repositoryClass=MembreRepository::class)
- * @UniqueEntity(fields={"pseudo"}, message="There is already an account with this pseudo")
+ * @UniqueEntity(fields={"pseudo"}, message="Ce pseudo est déjà utilisé")
  */
 class Membre implements UserInterface
 {
@@ -50,6 +51,7 @@ class Membre implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=50)
+     * @Assert\Email()
      */
     private $email;
 

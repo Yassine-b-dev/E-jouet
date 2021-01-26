@@ -1,3 +1,5 @@
+$success: #a5c926;
+
 @import "~bootstrap/scss/bootstrap";
 @import "~owl.carousel/dist/assets/owl.carousel.min.css";
 @import "~animate.css/animate.min.css";
@@ -8,7 +10,11 @@
 
 
 body {
-    background-color: lightgray;
+    background-color: rgb(255, 255, 255);
+}
+
+.btn-success{
+    color:white;
 }
 
 
@@ -310,7 +316,7 @@ body {
         right: 30px; } }
   
   /* Essence Button */
-  .amado-btn {
+  .amado-btn, .amado-btn-red {
     display: inline-block;
     min-width: 160px;
     height: 55px;
@@ -322,7 +328,11 @@ body {
     line-height: 56px;
     background-color: #a5c926;
     font-weight: 400; }
-    .amado-btn.active, .amado-btn:hover, .amado-btn:focus {
+
+    .amado-btn-red{
+      background-color: red;
+    }
+    .amado-btn.active, .amado-btn:hover, .amado-btn:focus, .amado-btn-red.active, .amado-btn-red:hover, .amado-btn-red:focus  {
       font-size: 18px;
       color: #ffffff;
       background-color: #131212; }
