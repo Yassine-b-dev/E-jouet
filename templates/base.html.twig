@@ -85,7 +85,7 @@
             <div class="cart-fav-search mb-40">
                 
                 
-                <a href="cart.html" class="cart-nav"><div class="fas fa-shopping-cart"></div> Panier <span>(0)</span></a>
+                <a href="{{ path("panier") }}" class="cart-nav"><div class="fas fa-shopping-cart"></div> Panier <span>({{ app.session.get('panier[0][quantite]')}})</span></a>
                 
                 {% if is_granted("IS_AUTHENTICATED_FULLY") %}
                 {% if is_granted("ROLE_ADMIN") %}
