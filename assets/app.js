@@ -21,7 +21,7 @@ require('bootstrap');
 
 
 
-import './active.js';
+//import './active.js';
 
 
 

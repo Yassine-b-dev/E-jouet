@@ -11,7 +11,6 @@
                 <th>Id</th>
                 <th>Pseudo</th>
                 <th>Roles</th>
-                <th>Password</th>
                 <th>Nom</th>
                 <th>Prenom</th>
                 <th>Email</th>
@@ -26,8 +25,15 @@
             <tr>
                 <td>{{ membre.id }}</td>
                 <td>{{ membre.pseudo }}</td>
-                <td>{{ membre.roles ? membre.roles|json_encode : '' }}</td>
-                <td>{{ membre.password }}</td>
+                <td>{% for role in membre.roles %}
+                        {% if role == 'ROLE_ADMIN' %}
+                            Administrateur
+                        {% elseif role == "ROLE_USER" %}
+                            Utilisateur
+                        {% else %}
+                            Autre
+                        {% endif %}
+                    {% endfor %}</td>
                 <td>{{ membre.nom }}</td>
                 <td>{{ membre.prenom }}</td>
                 <td>{{ membre.email }}</td>
@@ -35,8 +41,8 @@
                 <td>{{ membre.cp }}</td>
                 <td>{{ membre.ville }}</td>
                 <td>
-                    <a href="{{ path('membre_show', {'id': membre.id}) }}">show</a>
-                    <a href="{{ path('membre_edit', {'id': membre.id}) }}">edit</a>
+                    <a href="{{ path('membre_show', {'id': membre.id}) }}">Voir </a> /
+                    <a href="{{ path('membre_edit', {'id': membre.id}) }}"> Modifier</a>
                 </td>
             </tr>
         {% else %}

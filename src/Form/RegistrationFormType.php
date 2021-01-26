@@ -26,17 +26,17 @@ class RegistrationFormType extends AbstractType
         ->add('password', RepeatedType::class, [
             'type' => PasswordType::class,
             'invalid_message' => 'Le mot de passe saisi ne correspond pas',
-            'label' => 'Votre mot de passe',
+            'label' => 'Mot de passe',
             'required' => true,
             'first_options' => [
                 'label' => 'Mot de passe',
                 'attr' => [
-                    'placeholder' => 'Merci de saisir votre mot de passe'
+                    'placeholder' => ''
                 ]],
             'second_options' => [
                 'label' => 'Confirmation du mot de passe',
                 'attr' => [
-                    'placeholder' => 'Confirmez votre mot de passe'
+                    'placeholder' => ''
                 ]],
         ])
 

@@ -9,9 +9,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
- * @Route("/membre")
+ * @Route("admin/membre")
  */
 class MembreController extends AbstractController
 {
@@ -28,13 +29,21 @@ class MembreController extends AbstractController
     /**
      * @Route("/new", name="membre_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
     {
         $membre = new Membre();
         $form = $this->createForm(MembreType::class, $membre);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+             // encode the plain password
+            $membre->setPassword(
+                $passwordEncoder->encodePassword(
+                    $membre,
+                    $form->get('password')->getData()
+                )
+            );
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($membre);
             $entityManager->flush();
