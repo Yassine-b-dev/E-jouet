@@ -17,7 +17,7 @@ use Doctrine\ORM\EntityManagerInterface;
 class JouetController extends AbstractController
 {
     /**
-     * @Route("/", name="jouet_index", methods={"GET"})
+     * @Route("/", name="jouet_index")
      */
     public function index(JouetRepository $jouetRepository): Response
     {
@@ -28,16 +28,16 @@ class JouetController extends AbstractController
     }
 
     /**
-     * @Route("/ajouter", name="jouet_ajouter", methods={"GET","POST"})
+     * @Route("/ajouter", name="jouet_ajouter")
      */
     public function nouveau(Request $request, EntityManagerInterface $em): Response
     {
         $jouet = new Jouet;
-        $formjouet = $this->createForm(JouetType::class, $jouet);
-        $formjouet->handleRequest($request);
-        if($formjouet->isSubmitted() && $formjouet->isValid())
+        $formJouet = $this->createForm(JouetType::class, $jouet);
+        $formJouet->handleRequest($request);
+        if($formJouet->isSubmitted() && $formJouet->isValid())
         {
-            if($fichier = $formjouet->get("photo")->getData())
+            if($fichier = $formJouet->get("photo")->getData())
             {
                 $destination = $this->getParameter("dossier_images");
                 $nomFichier = pathinfo($fichier->getClientOriginalName(), PATHINFO_FILENAME);
@@ -66,7 +66,7 @@ class JouetController extends AbstractController
     }
 
     /**
-     * @Route("/modifier/{id}", name="jouet_modifier", methods={"GET","POST"})
+     * @Route("/modifier/{id}", name="jouet_modifier")
      */
     public function modifier(Request $request,EntityManagerInterface $em,JouetRepository $jr, $id): Response
     {
