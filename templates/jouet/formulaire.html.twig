@@ -1,0 +1,16 @@
+{% extends "base.html.twig" %}
+{% block body %}
+    {{ form(formJouet) }}
+{% endblock %}
+
+{% block h1 %}
+
+    {{ jouet is defined ? "Modifier le jouet n°" ~ jouet.id : "Ajouter un jouet" }}
+{% endblock %}
+
+{% block title %}
+    {% if jouet is defined %}
+        Modifier
+    {% endif %}
+    Ajouter
+{% endblock %}
