@@ -3,18 +3,71 @@
 {% block title %}Hello PanierController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+ <div class="cart-table-area section-padding-100">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12 col-lg-8">
+                        <div class="cart-title mt-50">
+                            <h2>Panier</h2>
+                        </div>
+                    {% if panier | length > 0 %}
+                        <div class="cart-table clearfix">
+                            <table class="table table-responsive">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Titre</th>
+                                        <th>Prix</th>
+                                        <th>Quantité</th>
+                                        <th class="total-th">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in panier %}
+                                    <tr>
+                                        <td class="cart_product_img">
+                                            <a href="#"><img src="{{ asset("img/" ~ item.jouet.photo) }}" alt="Product"></a>
+                                        </td>
+                                        <td class="cart_product_desc">
+                                            <h5>{{ item.jouet.nomJouet }}</h5>
+                                        </td>
+                                        <td class="price">
+                                            <span>{{ item.jouet.prix }} €</span>
+                                        </td>
+                                        <td class="qty">
+                                            {{ item.quantite }}
+                                        </td>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/Applications/MAMP/htdocs/E-Jouet/src/Controller/PanierController.php'|file_link(0) }}">src/Controller/PanierController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/Applications/MAMP/htdocs/E-Jouet/templates/panier/index.html.twig'|file_link(0) }}">templates/panier/index.html.twig</a></code></li>
-    </ul>
-</div>
+                                        <td class="price">
+                                            {{ item.jouet.prix * item.quantite}}
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                        
+                                </tbody>
+                            </table>
+                        </div>
+                        {% else %}
+                            <p>Surprise, c'est vide ! </p>
+                        {% endif %}
+                    </div>
+                    <div class="col-12 col-lg-4">
+                        <div class="cart-summary">
+                            <h5>Total du Panier</h5>
+                            <ul class="summary-table">
+                                <li><span>livraison:</span> <span>Gratuit</span></li>
+                                <li><span>total:</span> <span></span></li>
+                            </ul>
+                            <div class="cart-btn mt-100">
+                                <a href="cart.html" class="btn amado-btn w-100">Paiement</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ##### Main Content Wrapper End ##### -->
+
 {% endblock %}
