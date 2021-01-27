@@ -6,7 +6,13 @@
 <div class=" mx-auto amado_product_area section-padding-100">
             <div class="container-fluid">
 
-
+            {% for type, messages in app.flashes %}
+				<div class="alert alert-{{ type }}">
+					{% for msg in messages %}
+						{{ msg|raw }}
+					{% endfor %}
+				</div>
+			{% endfor %}
                 <div class="row">
                     {% for jouet in jouets %}
                         
@@ -36,7 +42,12 @@
                                     <!-- Ratings & Cart -->
                                     <div class="ratings-cart text-right">
                                         <div class="cart">
+                                        {% if jouet.stock <= 0 %}
+                                            <p>RUPTURE DE STOCK</p>
+                                        {% else %}
                                             <a href="{{ path('panier_ajouter', {'id': jouet.id}) }}" data-toggle="tooltip" data-placement="left" title="Add to Cart"><img src="img/core-img/cart.png" alt=""></a>
+                                        {% endif %}
+                                            
                                         </div>
                                     </div>
                                 </div>

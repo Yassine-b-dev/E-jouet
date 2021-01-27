@@ -97,7 +97,7 @@ class MembreAuthenticator extends AbstractFormLoginAuthenticator implements Pass
         }
 
         // For example : 
-        return new RedirectResponse($this->urlGenerator->generate('test'));
+        return new RedirectResponse($this->urlGenerator->generate('boutique'));
         
     }
 

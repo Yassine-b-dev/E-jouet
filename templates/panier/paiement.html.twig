@@ -1,0 +1,88 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Panier{% endblock %}
+
+{% block body %}
+
+<div class="cart-table-area section-padding-100">
+            <div class="container-fluid">
+            {% for type, messages in app.flashes %}
+				<div class="alert alert-{{ type }}">
+					{% for msg in messages %}
+						{{ msg|raw }}
+					{% endfor %}
+				</div>
+			{% endfor %}
+                <div class="row">
+                    <div class="col-12 col-lg-8">
+                        <div class="checkout_details_area mt-50 clearfix">
+
+                            <div class="cart-title">
+                                <h2>Paiement</h2>
+                            </div>
+
+                            <form action="#" method="post">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="Prénom">Prénom</label>
+                                        <input type="text" class="form-control" id="prenom" value="{{utilisateur.prenom}}" placeholder="Prénom" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="Nom">Nom</label>
+                                        <input type="text" class="form-control" id="nom" value="{{utilisateur.nom}}" placeholder="Nom" required>
+                                    </div>
+                                    
+                                    <div class="col-12 mb-3">
+                                        <label for="Email">Email</label>
+                                        <input type="email" class="form-control" id="email" placeholder="Email" value="{{utilisateur.email}}">
+                                    </div>
+                                    <div class="col-12 mb-3">
+                                        <label for="Adresse">Adresse</label>
+                                        <input type="text" class="form-control mb-3" id="address" placeholder="Adresse" value="{{utilisateur.adresse}}">
+                                    </div>
+                                    <div class="col-12 mb-3">
+                                        <label for="Ville">Ville</label>
+                                        <input type="text" class="form-control" id="city" placeholder="Ville" value="{{utilisateur.ville}}">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="Code postale">Code postale</label>
+                                        <input type="text" class="form-control" id="zipCode" placeholder="Code postale" value="{{utilisateur.cp}}">
+                                    </div>
+                                    
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-4">
+                        <div class="cart-summary">
+                            <h5>Total du Panier</h5>
+                            <ul class="summary-table">
+                                <li><span>livraison:</span> <span>Gratuit</span></li>
+                                <li><span>total:</span> <span>{{total}} €</span></li>
+                            </ul>
+
+                            <div class="payment-method">
+                                <!-- Cash on delivery -->
+                                <div class="custom-control custom-checkbox mr-sm-2">
+                                    <input type="checkbox" class="custom-control-input" id="cod" checked>
+                                    <label class="custom-control-label" for="cod">Paiement par carte</label>
+                                </div>
+                                <!-- Paypal -->
+                                <div class="custom-control custom-checkbox mr-sm-2">
+                                    <input type="checkbox" class="custom-control-input" id="paypal">
+                                    <label class="custom-control-label" for="paypal">Paypal <img class="ml-15" src="img/core-img/paypal.png" alt=""></label>
+                                </div>
+                            </div>
+
+                            <div class="cart-btn mt-100">
+                                <a href="{{ path("panier_valider") }}" class="btn amado-btn w-100">Paiement</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

@@ -26,6 +26,7 @@
 
 
     <body>
+  
     <!-- Search Wrapper Area Start -->
     <div class="search-wrapper section-padding-100">
         <div class="search-close">
@@ -53,7 +54,7 @@
         <div class="mobile-nav">
             <!-- Navbar Brand -->
             <div class="amado-navbar-brand">
-                <a href="index.html"><img src="img/core-img/logo.png" alt=""></a>
+                <a href="index.html"><img src="{{ asset("img/core-img/logo.png") }}" alt=""></a>
             </div>
             <!-- Navbar Toggler -->
             <div class="amado-navbar-toggler">
@@ -69,7 +70,7 @@
             </div>
             <!-- Logo -->
             <div class="logo">
-                <a href="index.html"><img src="img/core-img/logo.png" alt=""></a>
+                <a href="index.html"><img src="{{ asset("img/core-img/logo.png") }}" alt=""></a>
             </div>
 
             <!-- Amado Nav -->
@@ -85,7 +86,7 @@
             <div class="cart-fav-search mb-40">
                 
         
-                <a href="{{ path("panier") }}" class="cart-nav"><div class="fas fa-shopping-cart"></div> Panier <span>({# {{ app.session.get('panier') }} #})</span></a>
+                <a href="{{ path("panier") }}" class="cart-nav"><div class="fas fa-shopping-cart"></div> Panier <span>({{ app.session.get('panier')|length }})</span></a>
                 
                 {% if is_granted("IS_AUTHENTICATED_FULLY") %}
                 {% if is_granted("ROLE_ADMIN") %}
@@ -114,11 +115,12 @@
             </div>
         </header>
         <!-- Header Area End -->
+        
     {% block body %}
 
     {% endblock %}
 
-
+    
     </div>
     <!-- ##### Main Content Wrapper End ##### -->
     
@@ -153,7 +155,7 @@
                     <div class="single_widget_area">
                         <!-- Logo -->
                         <div class="footer-logo mr-50">
-                            <a href="index.html"><img src="img/core-img/logo2.png" alt=""></a>
+                            <a href="index.html"><img src="{{ asset("img/core-img/logo2.png") }}" alt=""></a>
                         </div>
                         <!-- Copywrite Text -->
                         <p class="copywrite"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->

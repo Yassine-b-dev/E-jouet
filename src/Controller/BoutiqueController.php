@@ -11,7 +11,7 @@ use App\Entity\Jouet;
 class BoutiqueController extends AbstractController
 {
     /**
-     * @Route("/boutique", name="boutique")
+     * @Route("/", name="boutique")
      */
     public function index(JouetRepository $jouetRepository): Response
     {

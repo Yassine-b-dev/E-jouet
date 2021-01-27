@@ -13,15 +13,14 @@ import './styles/app.scss';
 const $ = require('jquery');
 
 
-import  WOW  from 'wowjs';
-window.WOW = WOW.WOW;
+
 import 'popper.js/dist/popper.js';
 
 require('bootstrap');
 
 
 
-//import './active.js';
+import './active.js';
 
 
 

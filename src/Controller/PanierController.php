@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface as Session;
 use App\Entity\Commande, App\Entity\Detail;
 use App\Repository\JouetRepository;
+use App\Repository\MembreRepository;
 use Doctrine\ORM\EntityManagerInterface as EntityManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
@@ -22,18 +23,52 @@ class PanierController extends AbstractController
     public function index(Session $session, JouetRepository $jr)
     {
         $panier = $session->get("panier");
-
         $montant = 0;
+
+        if(!empty($panier) ){
+        foreach($panier as $ligne){
+            $montant += $ligne["jouet"]->getPrix() * $ligne["quantite"];
+
+            $jouet = $jr->find($ligne["jouet"]->getId());
+
+            if($jouet = 0){
+
+            }
+
+        }
+        }
+        
+        
+        
+        //dd($panier);
+
+
+        return $this->render('panier/index.html.twig', ["total" => $montant, "panier" => $panier]);
+    }
+
+    /**
+     * @Route("/paiement", name="paiement")
+     */
+    public function paiement(Session $session, JouetRepository $jr)
+    {
+        $panier = $session->get("panier");
+
+        $utilisateur = $this->getUser();
+        if(!$utilisateur){
+            $this->addFlash("danger", "Vous devez vous connecter ou vous inscrire pour valider un panier !");
+            return $this->redirectToRoute("panier");
+        }
+        $montant = 0;
+
+        if(!empty($panier) ){
         foreach($panier as $ligne){
             $montant += $ligne["jouet"]->getPrix() * $ligne["quantite"];
 
             $jouet = $jr->find($ligne["jouet"]->getId());
 
         }
-        //dd($panier);
-
-
-        return $this->render('panier/index.html.twig', ["total" => $montant, "panier" => $panier]);
+        }
+        return $this->render('panier/paiement.html.twig', [ "utilisateur" => $utilisateur, "total" => $montant]);
     }
 
     /**
@@ -117,6 +152,15 @@ class PanierController extends AbstractController
     public function valider(Session $session, EntityManager $em, JouetRepository $jr)
     {
         $panier = $session->get("panier");
+
+        foreach($panier as $ligne){
+            if ($ligne["jouet"]->getStock() < $ligne["quantite"]) {
+                $jouet = $jr->find($ligne["jouet"]->getId());
+
+                $this->addFlash("danger", "Il ne reste que " . $jouet->getStock() . " exemplaire(s) du Jouet " . $jouet->getNomJouet() );
+                return $this->redirectToRoute("panier");
+            }
+        }
         $cmd = new Commande;
         $cmd->setMembre($this->getUser());
         $cmd->setDateEnregistrement(new \DateTime("now"));
@@ -139,14 +183,19 @@ class PanierController extends AbstractController
             // EXO : vérifier que la quantité commandée ne dépasse pas le stock
             //       sinon, réduire la quantité commandée (= stock)
             // 📣 Rappel : La méthode jouet::setStock a été modifiée
-            $jouet->setStock( -$ligne["quantite"] );
+            
+            $jouet->setStock( $jouet->getStock() - $ligne["quantite"] );
             $em->persist($detail);
         }
         $cmd->setMontant($montant);
         $em->persist($cmd);
         $em->flush();
         $session->remove("panier");
-        return $this->redirectToRoute("profil");
+        $this->addFlash("success", "Votre commande a bien été enregistrée");
+        return $this->redirectToRoute("boutique");
     }
+
+
+    
 
 }
