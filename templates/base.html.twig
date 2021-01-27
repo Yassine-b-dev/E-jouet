@@ -75,8 +75,8 @@
             <!-- Amado Nav -->
             <nav class="amado-nav">
                 <ul>
-                    <li class="active"><a href="index.html">Accueil</a></li>
-                    <li><a href="shop.html">Boutique</a></li>
+                    
+                    <li class="active"><a  href="{{ path("boutique") }}">Boutique</a></li>
                     
                     <li><a href="checkout.html">Paiement</a></li>
                 </ul>
@@ -84,8 +84,8 @@
             <!-- Cart Menu -->
             <div class="cart-fav-search mb-40">
                 
-                
-                <a href="{{ path("panier") }}" class="cart-nav"><div class="fas fa-shopping-cart"></div> Panier <span>({{ app.session.get('panier[0][quantite]')}})</span></a>
+        
+                <a href="{{ path("panier") }}" class="cart-nav"><div class="fas fa-shopping-cart"></div> Panier <span>({# {{ app.session.get('panier') }} #})</span></a>
                 
                 {% if is_granted("IS_AUTHENTICATED_FULLY") %}
                 {% if is_granted("ROLE_ADMIN") %}

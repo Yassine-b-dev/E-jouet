@@ -19,11 +19,21 @@ class PanierController extends AbstractController
     /**
      * @Route("/", name="panier")
      */
-    public function index(Session $session)
+    public function index(Session $session, JouetRepository $jr)
     {
         $panier = $session->get("panier");
+
+        $montant = 0;
+        foreach($panier as $ligne){
+            $montant += $ligne["jouet"]->getPrix() * $ligne["quantite"];
+
+            $jouet = $jr->find($ligne["jouet"]->getId());
+
+        }
         //dd($panier);
-        return $this->render('panier/index.html.twig', compact("panier"));
+
+
+        return $this->render('panier/index.html.twig', ["total" => $montant, "panier" => $panier]);
     }
 
     /**

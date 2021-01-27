@@ -40,7 +40,7 @@
                                         </td>
 
                                         <td class="price">
-                                            {{ item.jouet.prix * item.quantite}}
+                                            {{ item.jouet.prix * item.quantite}} €
                                         </td>
                                     </tr>
                                     {% endfor %}
@@ -57,10 +57,10 @@
                             <h5>Total du Panier</h5>
                             <ul class="summary-table">
                                 <li><span>livraison:</span> <span>Gratuit</span></li>
-                                <li><span>total:</span> <span></span></li>
+                                <li><span>total:</span> <span>{{total}}</span></li>
                             </ul>
                             <div class="cart-btn mt-100">
-                                <a href="cart.html" class="btn amado-btn w-100">Paiement</a>
+                                <a href="{{ path("membre_index") }}" class="btn amado-btn w-100">Valider mon panier</a>
                             </div>
                         </div>
                     </div>
