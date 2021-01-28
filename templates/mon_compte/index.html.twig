@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon compte{% endblock %}
+
+{% block body %}
+
+    <h1>Compte n°{{app.user.id}}({{app.user.pseudo}})</h1>
+    {% for commande in app.user.commandes %}
+        <table class="table">
+        <thead>
+            <tr>
+                <th>n°commande</th>
+                <th>Date de la commande</th>
+                <th>Total</th>
+                <th>Etat de la commande</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{commande.id}}</td>
+                <td>{{commande.dateEnregistrement|date("d/m/Y")}}</td>
+                <td>{{commande.montant}} €</td>
+                <td>{{commande.etat}}</td>
+                <td>
+                    <a href="{{ path("commande", {"id": commande.id}) }}">
+                                <i class="fa fa-book"></i>
+                            </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    {% endfor %}
+    
+
+{% endblock %}

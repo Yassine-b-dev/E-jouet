@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Commande{% endblock %}
+
+{% block body %}
+
+    <h1>Commande n°{{commande.id}}</h1>
+    
+        <table class="table">
+        <thead>
+            <tr>
+                <th>n°commande</th>
+                <th>Date de la commande</th>
+                <th>Total</th>
+                <th>Etat de la commande</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{commande.id}}</td>
+                <td>{{commande.dateEnregistrement|date("d/m/Y")}}</td>
+                <td>{{commande.montant}} €</td>
+                <td>{{commande.etat}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <h2>Détail de la commande</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Jouet</th>
+                <th>Quantité</th>
+                <th>Prix</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for detail in commande.details %}
+                <tr>
+                    <td>{{detail.jouet.nomJouet}}</td>
+                    <td>{{detail.quantite}}</td>
+                    <td>{{detail.prix}}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+
+{% endblock %}
