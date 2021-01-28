@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Commande{% endblock %}
+
+{% block body %}
+            
+            {# {% for detail in commande.details %}
+                <tr>
+                    <td>{{detail.jouet.nomJouet}}</td>
+                    <td>{{detail.quantite}}</td>
+                    <td>{{detail.prix}}</td>
+                </tr>
+            {% endfor %} #}
+
+<div class="cart-table-area section-padding-100">
+            <div class="container-fluid">
+                            <div class="row">
+                    <div class="col-12 ">
+                        
+
+                            <div class="cart-title">
+                                <h2>Commande n°{{commande.id}}</h2>
+                            </div>
+
+                
+                    </div>
+                    <div class="col-6 mx-auto">
+                        <div class="cart-summary">
+                            <h5>Récapitulatif de la commande</h5>
+                            
+                            
+                            {% for detail in commande.details %}
+                               
+                                <table class="table table-bordered table-active mx-auto ">
+                            <thead>
+                                <tr>
+                                    <th>Nom du produit</th>
+                                    <th>quantite</th>
+                                    <th>prix unitaire</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{detail.jouet.nomJouet}}</td>
+                                    <td>{{detail.quantite}}</td>
+                                    <td>{{detail.prix}} €</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                            {% endfor %}
+                            <ul class="summary-table">
+                            <li><span>total: {{commande.montant}} €</span></li>
+                            </ul>
+                            <form action="{{ path("modifier_commande", {"id": commande.id}) }}" method="post">
+                                <div class="row">
+                                    <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="inputGroupSelect01">État de la commande</label>
+                                </div>
+                                <select class="custom-select" id="inputGroupSelect01" name="etat">
+                                    <option value="{{commande.etat}}"selected>{{commande.etat}}</option>
+                                    <option value="En cours de livraison">En cours de livraison</option>
+                                    <option value="Livré">Livré</option>
+                                    <option value="En attente">En attente</option>
+                                </select>
+                                </div>
+                                    
+                                </div>
+                                <div class="cart-btn mt-100">
+                                <button type="submit" name="addtocart" class="btn amado-btn w-100">Changer l'état de la commande</button>
+                            </div>
+                            </form>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+
+{% endblock %}

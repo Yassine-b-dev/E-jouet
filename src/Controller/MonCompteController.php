@@ -5,10 +5,7 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Repository\JouetRepository;
-use App\Repository\MembreRepository;
 use App\Repository\CommandeRepository;
-use App\Repository\DetailRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
@@ -26,11 +23,11 @@ class MonCompteController extends AbstractController
     /**
      * @Route("/commande/{id}", name="commande")
      */
-    public function affichageCommande(CommandeRepository $cr,DetailRepository $dr,$id)
+    public function affichageCommande(CommandeRepository $cr,$id)
     {
         $utilisateur = $this->getUser();
         $commande = $cr->find($id);
-        if($utilisateur->getId() == $commande->getMembre()->getId())
+        if($utilisateur->getId() == ($commande->getMembre()->getId() && $utilisateur->getRoles() != 'ROLE_ADMIN'))
         {
             return $this->render('mon_compte/commande.html.twig', ['commande' => $commande]);
         }

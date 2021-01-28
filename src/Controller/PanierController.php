@@ -161,7 +161,10 @@ class PanierController extends AbstractController
     public function valider(Session $session, EntityManager $em, JouetRepository $jr)
     {
         $panier = $session->get("panier");
-
+        if (empty($panier)) {
+            $this->addFlash("danger", "Votre panier est vide !");
+            return $this->redirectToRoute("boutique");
+        }
         foreach($panier as $ligne){
             if ($ligne["jouet"]->getStock() < $ligne["quantite"]) {
                 $jouet = $jr->find($ligne["jouet"]->getId());
