@@ -9,7 +9,11 @@ use App\Repository\JouetRepository;
 use App\Repository\MembreRepository;
 use App\Repository\CommandeRepository;
 use App\Repository\DetailRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
+/**
+ * @IsGranted("IS_AUTHENTICATED_FULLY")
+ */
 class MonCompteController extends AbstractController
 {
     /**
@@ -24,8 +28,17 @@ class MonCompteController extends AbstractController
      */
     public function affichageCommande(CommandeRepository $cr,DetailRepository $dr,$id)
     {
+        $utilisateur = $this->getUser();
         $commande = $cr->find($id);
-        return $this->render('mon_compte/commande.html.twig', ['commande' => $commande]);
+        if($utilisateur->getId() == $commande->getMembre()->getId())
+        {
+            return $this->render('mon_compte/commande.html.twig', ['commande' => $commande]);
+        }
+        else
+        {
+            $this->addFlash("danger", "Vous n'avez pas accès à cette commande !");
+            return $this->redirectToRoute("mon_compte");
+        }    
     }
   
 }
