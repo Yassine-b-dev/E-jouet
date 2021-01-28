@@ -898,14 +898,19 @@ body {
           display: inline-block;
           color: #6b6b6b;
           font-size: 14px; }
-        .main-content-wrapper .single-product-area .single_product_desc .product-meta-data .avaibility {
+        .main-content-wrapper .single-product-area .single_product_desc .product-meta-data .avaibility, .rupture {
           margin-bottom: 0;
           font-size: 12px;
           color: #6b6b6b;
           line-height: 1; }
-          .main-content-wrapper .single-product-area .single_product_desc .product-meta-data .avaibility i {
+          .main-content-wrapper .single-product-area .single_product_desc .product-meta-data .avaibility i, .rupture i{
             color: #20d34a;
             font-size: 12px; }
+
+        .rupture i{
+          color: red;
+        }
+                
         .main-content-wrapper .single-product-area .single_product_desc .short_overview p {
           line-height: 2.1;
           color: #6b6b6b; }

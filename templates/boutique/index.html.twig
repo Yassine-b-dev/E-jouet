@@ -21,7 +21,7 @@
                         <div class="col-12 col-sm-6 col-md-12 col-xl-6">
                             <div class="single-product-wrapper">
                                 <!-- Product Image -->
-                                <a href="">
+                                <a href="{{ path('detail_jouet', {'id': jouet.id}) }}">
                                 <div class="product-img">
                                     <img src="{{ asset("img/" ~ jouet.photo) }}" alt="">
                                     <!-- Hover Thumb -->
@@ -35,7 +35,7 @@
                                     <div class="product-meta-data">
                                         <div class="line"></div>
                                         <p class="product-price">{{jouet.prix}} €</p>
-                                        <a href="product-details.html">
+                                        <a href="{{ path('detail_jouet', {'id': jouet.id}) }}">
                                             <h6>{{jouet.nomJouet}}</h6>
                                         </a>
                                     </div>
