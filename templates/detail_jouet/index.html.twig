@@ -7,7 +7,13 @@
 <!-- Product Details Area Start -->
         <div class="single-product-area section-padding-100 clearfix">
             <div class="container-fluid">
-
+                {% for type, messages in app.flashes %}
+				<div class="alert alert-{{ type }}">
+					{% for msg in messages %}
+						{{ msg|raw }}
+					{% endfor %}
+				</div>
+			{% endfor %}
 
                 <div class="row">
                     <div class="col-12 col-lg-7">

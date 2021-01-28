@@ -28,6 +28,12 @@ body {
 
 }
 
+.btn-modifier{
+    background: white;
+    border: none;
+    color: #a5c926;
+}
+
 @font-face {
   font-family: 'helveticaneuebold';
   src: url("/fonts/helvetica_neu_bold-webfont.woff2") format("woff2"), url("/fonts/helvetica_neu_bold-webfont.woff") format("woff");

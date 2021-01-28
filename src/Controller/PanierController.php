@@ -84,9 +84,16 @@ class PanierController extends AbstractController
         if($jouet){
             foreach($panier as $indice => $ligne){
                 if($jouet->getId() == $ligne["jouet"]->getId() ){
+                    $totalDesire = $qte + $ligne["quantite"];
+                    if ($totalDesire > $jouet->getStock()) {
+                        $this->addFlash("danger", "Vous ne pouvez pas demander plus d'exemplaire que ce que nous avons en stock. Il se peut que vous ayez déjà des exemplaires de ce produit dans votre panier.");
+                        return $this->redirectToRoute("detail_jouet", ["id" => $id]);
+                    }else{
                     $qte += $ligne["quantite"];
                     $panier[$indice]["quantite"] = $qte;
                     $jouetExiste = true;
+                    }
+                    
                 }
             }
             if(!$jouetExiste){
@@ -130,9 +137,10 @@ class PanierController extends AbstractController
      * @Route("/modifier-quantite/{id}", name="panier_modifier_jouet", requirements={"id"="\d+"})
      * @IsGranted("IS_AUTHENTICATED_FULLY")
      */
-    public function modifier(Request $rq, Session $session, $id)
+    public function modifier(Request $rq, Session $session, JouetRepository $jr, $id)
     {
         $panier = $session->get("panier");
+        $jouet = $jr->find($id);
         $qte = $rq->query->get("qte");
         $qte = empty($qte) ? 1 : $qte;
         foreach($panier as $indice => $ligne){
@@ -143,6 +151,7 @@ class PanierController extends AbstractController
         }
 
         $session->set("panier", $panier);
+        $this->addFlash("success", "La quantité du jouet " . $jouet->getNomJouet() . " à bien été modifié" );
         return $this->redirectToRoute("panier");
     }
 
