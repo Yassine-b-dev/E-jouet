@@ -44,7 +44,19 @@
                                             <span>{{ item.jouet.prix }} €</span>
                                         </td>
                                         <td class="qty">
-                                            {{ item.quantite }}
+                                            
+                                            <form class="cart clearfix" action="{{ path('panier_modifier_jouet', {'id': item.jouet.id}) }}" method="get">
+                                                <div class="cart-btn d-flex align-items-center">
+                                                    <div class="quantity">
+                                                        <input type="number" class="qty-text" id="qty" step="1" min="1" max="{{item.jouet.stock}}" name="qte" value="{{ item.quantite }}">
+                                                    </div>
+                                                    <button type="submit" name="addtocart" class="mx-auto btn-modifier"><i class="fas fa-check"></i></button>
+                                                </div>
+                                                
+                                                    
+                                                    
+                                                    
+                                            </form>
                                         </td>
 
                                         <td class="price">
