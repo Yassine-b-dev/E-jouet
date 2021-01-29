@@ -3,5 +3,24 @@
 {% block title %}Nouveau jouet{% endblock %}
 
 {% block body %}
-    {{ form(formJouet) }}
+    <div class="cart-table-area section-padding-100">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12 ">
+                    <div class="cart-title mt-50">
+                        <h2 class="text-center">Ajouter un jouet</h2>
+                    </div>
+                    
+                </div>
+                <div class="col-3 mx-auto">
+                    {{ form(formJouet) }}
+                    <div class="amado-btn-group mt-30 mb-70">
+                            <a href="{{ path('jouet_index') }}" class="btn amado-btn w-100 mb-70">Retour à la liste</a>
+                        </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    
 {% endblock %}
