@@ -13,7 +13,7 @@
     <title>E-Jouet - {% block title %}Accueil{% endblock %}</title>
 
     <!-- Favicon  -->
-    <link rel="icon" href="img/core-img/favicon.ico">
+    <link rel="icon" href="{{ asset("img/core-img/favicon.ico") }}">
 
     <!-- Core Style CSS -->
     {% block stylesheets %}{{ encore_entry_link_tags("app") }}{% endblock %}
@@ -34,7 +34,7 @@
         <div class="mobile-nav">
             <!-- Navbar Brand -->
             <div class="amado-navbar-brand">
-                <a href="index.html"><img src="{{ asset("img/core-img/logo.png") }}" alt=""></a>
+                <a href="{{ path("boutique") }}"><img src="{{ asset("img/core-img/logo.png") }}" alt=""></a>
             </div>
             <!-- Navbar Toggler -->
             <div class="amado-navbar-toggler">
@@ -50,7 +50,7 @@
             </div>
             <!-- Logo -->
             <div class="logo">
-                <a href="index.html"><img src="{{ asset("img/core-img/logo.png") }}" alt="logo"></a>
+                <a href="{{ path("boutique") }}"><img src="{{ asset("img/core-img/logo.png") }}" alt="logo"></a>
             </div>
 
             <!-- Amado Nav -->
@@ -111,7 +111,7 @@
                     <div class="single_widget_area">
                         <!-- Logo -->
                         <div class="footer-logo mr-50">
-                            <a href="index.html"><img src="{{ asset("img/core-img/logo2.png") }}" alt=""></a>
+                            <a href="{{ path("boutique") }}"><img src="{{ asset("img/core-img/logo2.png") }}" alt=""></a>
                         </div>
                         <!-- Copywrite Text -->
                         <p class="copywrite"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
