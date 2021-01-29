@@ -3,50 +3,75 @@
 {% block title %}Liste des jouets{% endblock %}
 
 {% block body %}
-    <h1>Liste des jouets</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nom_jouet</th>
-                <th>Prix</th>
-                <th>Description</th>
-                <th>Categorie</th>
-                <th>Photo</th>
-                <th>Stock</th>
-                <th>Reference</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for jouet in jouets %}
-            <tr>
-                <td>{{ jouet.id }}</td>
-                <td>{{ jouet.nomJouet }}</td>
-                <td>{{ jouet.prix }} €</td>
-                <td>{{ jouet.description }}</td>
-                <td>{{ jouet.categorie }}</td>
-                <td>
-                    <img class="mini" src="{{ asset("img/" ~ jouet.photo) }}" alt="pas de photo">
-                </td>
-                <td>{{ jouet.stock }}</td>
-                <td>{{ jouet.reference }}</td>
-                <td>
-                    <a href="{{ path("jouet_fiche", {"id": jouet.id}) }}">
-                                <i class="fa fa-book"></i>
-                            </a>
-                            <a href="{{ path("jouet_modifier", {"id": jouet.id }) }}">
-                                <i class="fa fa-edit"></i>
-                            </a>
-                            <a href="{{ path("jouet_supprimer", {"id": jouet.id }) }}">
-                                <i class="fa fa-trash"></i>
-                            </a>
-                </td>
-            </tr>
+    <div class="cart-table-area section-padding-100">
+            <div class="container-fluid">
+            {% for type, messages in app.flashes %}
+				<div class="alert alert-{{ type }}">
+					{% for msg in messages %}
+						{{ msg|raw }}
+					{% endfor %}
+				</div>
+			{% endfor %}
+                <div class="row">
+                    <div class="col-12 col-lg-8">
+                        <div class="cart-title mt-50">
+                            <h2>Liste des jouets</h2>
+                        </div>
+                        <div class="cart-table clearfix">
+                <table class="table table-striped table-responsive">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Id</th>
+                            <th>Nom_jouet</th>
+                            <th>Prix</th>
+                            <th>Description</th>
+                            <th>Categorie</th>
+                            <th>Photo</th>
+                            <th>Stock</th>
+                            <th>Reference</th>
+                            <th>actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for jouet in jouets %}
+                        <tr>
+                            <td>{{ jouet.id }}</td>
+                            <td>{{ jouet.nomJouet }}</td>
+                            <td>{{ jouet.prix }} €</td>
+                            <td>{{ jouet.description }}</td>
+                            <td>{{ jouet.categorie }}</td>
+                            <td>
+                                <img class="mini" src="{{ asset("img/" ~ jouet.photo) }}" alt="pas de photo">
+                            </td>
+                            <td>{{ jouet.stock }}</td>
+                            <td>{{ jouet.reference }}</td>
+                            <td>
+                                <a href="{{ path("jouet_fiche", {"id": jouet.id}) }}">
+                                            <i class="fa fa-book"></i>
+                                        </a>
+                                        <a href="{{ path("jouet_modifier", {"id": jouet.id }) }}">
+                                            <i class="fa fa-edit"></i>
+                                        </a>
+                                        <a href="{{ path("jouet_supprimer", {"id": jouet.id }) }}">
+                                            <i class="fa fa-trash"></i>
+                                        </a>
+                            </td>
+                        </tr>
 
-        {% endfor %}
-        </tbody>
-    </table>
-    <a href="{{ path("jouet_ajouter") }}">Ajouter un jouet</a>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-4">
+                        
+                        <div class="cart-btn mt-100">
+                                <a href="{{ path("jouet_ajouter") }}" class="btn amado-btn w-100">Ajouter un jouet</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

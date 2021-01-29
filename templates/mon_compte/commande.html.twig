@@ -4,45 +4,58 @@
 
 {% block body %}
 
-    <h1>Commande n°{{commande.id}}</h1>
-    
-        <table class="table">
-        <thead>
-            <tr>
-                <th>n°commande</th>
-                <th>Date de la commande</th>
-                <th>Total</th>
-                <th>Etat de la commande</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>{{commande.id}}</td>
-                <td>{{commande.dateEnregistrement|date("d/m/Y")}}</td>
-                <td>{{commande.montant}} €</td>
-                <td>{{commande.etat}}</td>
-            </tr>
-        </tbody>
-    </table>
-    <h2>Détail de la commande</h2>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Jouet</th>
-                <th>Quantité</th>
-                <th>Prix</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for detail in commande.details %}
-                <tr>
-                    <td>{{detail.jouet.nomJouet}}</td>
-                    <td>{{detail.quantite}}</td>
-                    <td>{{detail.prix}}</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    
+    <div class="cart-table-area section-padding-100">
+            <div class="container-fluid">
+            {% for type, messages in app.flashes %}
+				<div class="alert alert-{{ type }}">
+					{% for msg in messages %}
+						{{ msg|raw }}
+					{% endfor %}
+				</div>
+			{% endfor %}
+                            <div class="row">
+                    <div class="col-12 ">
+                        
+
+                            <div class="cart-title">
+                                <h2>Commande n°{{commande.id}}</h2>
+                            </div>
+
+                
+                    </div>
+                    <div class="col-6 mx-auto">
+                        <div class="cart-summary">
+                            <h5>Récapitulatif de la commande</h5>
+                            
+                            
+                            {% for detail in commande.details %}
+                            
+                                <table class="table table-bordered table-active mx-auto ">
+                            <thead>
+                                <tr>
+                                    <th>Nom du produit</th>
+                                    <th>quantite</th>
+                                    <th>prix unitaire</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{detail.jouet.nomJouet}}</td>
+                                    <td>{{detail.quantite}}</td>
+                                    <td>{{detail.prix}} €</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                            {% endfor %}
+                            <ul class="summary-table">
+                            <li><span>total: {{commande.montant}} €</span></li>
+                            <li><span>État de la commande:  {{commande.etat}} </span></li>
+                            </ul>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 {% endblock %}

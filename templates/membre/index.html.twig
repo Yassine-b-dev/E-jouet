@@ -1,57 +1,79 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Membre index{% endblock %}
+{% block title %}Liste des membres{% endblock %}
 
 {% block body %}
-    <h1>Membre index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Pseudo</th>
-                <th>Roles</th>
-                <th>Nom</th>
-                <th>Prenom</th>
-                <th>Email</th>
-                <th>Adresse</th>
-                <th>Cp</th>
-                <th>Ville</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for membre in membres %}
-            <tr>
-                <td>{{ membre.id }}</td>
-                <td>{{ membre.pseudo }}</td>
-                <td>{% for role in membre.roles %}
-                        {% if role == 'ROLE_ADMIN' %}
-                            Administrateur
-                        {% elseif role == "ROLE_USER" %}
-                            Utilisateur
-                        {% else %}
-                            Autre
-                        {% endif %}
-                    {% endfor %}</td>
-                <td>{{ membre.nom }}</td>
-                <td>{{ membre.prenom }}</td>
-                <td>{{ membre.email }}</td>
-                <td>{{ membre.adresse }}</td>
-                <td>{{ membre.cp }}</td>
-                <td>{{ membre.ville }}</td>
-                <td>
-                    <a href="{{ path('membre_show', {'id': membre.id}) }}">Voir </a> /
-                    <a href="{{ path('membre_edit', {'id': membre.id}) }}"> Modifier</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="11">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('membre_new') }}">Create new</a>
+<div class="cart-table-area section-padding-100">
+            <div class="container-fluid">
+            {% for type, messages in app.flashes %}
+				<div class="alert alert-{{ type }}">
+					{% for msg in messages %}
+						{{ msg|raw }}
+					{% endfor %}
+				</div>
+			{% endfor %}
+                <div class="row">
+                    <div class="col-12 col-lg-8">
+                        <div class="cart-title mt-50">
+                            <h2>Liste des membres</h2>
+                        </div>
+                        <div class="cart-table clearfix">
+                            <table class="table table-striped table-responsive">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Id</th>
+                            <th>Pseudo</th>
+                            <th>Roles</th>
+                            <th>Nom</th>
+                            <th>Prenom</th>
+                            <th>Email</th>
+                            <th>Adresse</th>
+                            <th>Cp</th>
+                            <th>Ville</th>
+                            <th>actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for membre in membres %}
+                        <tr>
+                            <td>{{ membre.id }}</td>
+                            <td>{{ membre.pseudo }}</td>
+                            <td>{% for role in membre.roles %}
+                                    {% if role == 'ROLE_ADMIN' %}
+                                        Administrateur
+                                    {% elseif role == "ROLE_USER" %}
+                                        Utilisateur
+                                    {% else %}
+                                        Autre
+                                    {% endif %}
+                                {% endfor %}</td>
+                            <td>{{ membre.nom }}</td>
+                            <td>{{ membre.prenom }}</td>
+                            <td>{{ membre.email }}</td>
+                            <td>{{ membre.adresse }}</td>
+                            <td>{{ membre.cp }}</td>
+                            <td>{{ membre.ville }}</td>
+                            <td>
+                                <a href="{{ path('membre_show', {'id': membre.id}) }}">Voir </a> /
+                                <a href="{{ path('membre_edit', {'id': membre.id}) }}"> Modifier</a>
+                            </td>
+                        </tr>
+                        
+                    {% endfor %}
+                    </tbody>
+                </table>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-4">
+                        
+                        <div class="cart-btn mt-100">
+                                <a href="{{ path("membre_new") }}" class="btn amado-btn w-100">Ajouter un nouveau membre</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ##### Main Content Wrapper End ##### -->
 {% endblock %}

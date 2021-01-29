@@ -3,49 +3,71 @@
 {% block title %}Jouet{% endblock %}
 
 {% block body %}
-    <h1>Jouet</h1>
-
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ jouet.id }}</td>
-            </tr>
-            <tr>
-                <th>Nom_jouet</th>
-                <td>{{ jouet.nomJouet }}</td>
-            </tr>
-            <tr>
-                <th>Prix</th>
-                <td>{{ jouet.prix }} €</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ jouet.description }}</td>
-            </tr>
-            <tr>
-                <th>Categorie</th>
-                <td>{{ jouet.categorie }}</td>
-            </tr>
-            <tr>
-                <th>Photo</th>
-                <td>
-                    <img src="{{ asset("img/" ~ jouet.photo) }}" alt="pas de photo">
-                </td>
-            </tr>
-            <tr>
-                <th>Stock</th>
-                <td>{{ jouet.stock }}</td>
-            </tr>
-            <tr>
-                <th>Reference</th>
-                <td>{{ jouet.reference }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('jouet_index') }}">Retour à la liste</a>
-
-    <a href="{{ path('jouet_modifier', {'id': jouet.id}) }}">Modifier</a>
-    <a href="{{ path("jouet_supprimer", {"id": jouet.id }) }}">Supprimer</a>
+    <div class="cart-table-area section-padding-100">
+            <div class="container-fluid">
+            {% for type, messages in app.flashes %}
+				<div class="alert alert-{{ type }}">
+					{% for msg in messages %}
+						{{ msg|raw }}
+					{% endfor %}
+				</div>
+			{% endfor %}
+                <div class="row">
+                    <div class="col-12 col-lg-8">
+                        <div class="cart-title mt-50">
+                            <h2>Détails jouet n°{{jouet.id}}</h2>
+                        </div>
+                        <div class="cart-table clearfix">
+                            <table class="table table-striped table-responsive">
+                                <tbody>
+                                    <tr>
+                                        <th>Id</th>
+                                        <td>{{ jouet.id }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Nom_jouet</th>
+                                        <td>{{ jouet.nomJouet }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Prix</th>
+                                        <td>{{ jouet.prix }} €</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Description</th>
+                                        <td>{{ jouet.description }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Categorie</th>
+                                        <td>{{ jouet.categorie }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Photo</th>
+                                        <td>
+                                            <img src="{{ asset("img/" ~ jouet.photo) }}" alt="photo du produit">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Stock</th>
+                                        <td>{{ jouet.stock }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Reference</th>
+                                        <td>{{ jouet.reference }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-4">
+                        <div class="amado-btn-group mt-30 mb-70">
+                            <a href="{{ path('jouet_index') }}" class="btn amado-btn w-100 mb-70">Retour à la liste</a>
+                            <a href="{{ path('jouet_modifier', {'id': jouet.id}) }}" class="btn amado-btn w-100 mb-70">Modifier ce jouet</a>
+                            <a href="{{ path("jouet_supprimer", {"id": jouet.id }) }}" class="btn amado-btn-red w-100 mb-70">Supprimer</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ##### Main Content Wrapper End ##### -->
 {% endblock %}

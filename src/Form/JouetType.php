@@ -35,7 +35,7 @@ class JouetType extends AbstractType
             ->add('reference')
             ->add("enregistrer", SubmitType::class, [
                 "attr" => [
-                    "class" => "btn btn-primary"
+                    "class" => "btn amado-btn w-100"
                 ]
             ])
         ;

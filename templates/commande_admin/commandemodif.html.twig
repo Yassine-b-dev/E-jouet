@@ -4,13 +4,7 @@
 
 {% block body %}
             
-            {# {% for detail in commande.details %}
-                <tr>
-                    <td>{{detail.jouet.nomJouet}}</td>
-                    <td>{{detail.quantite}}</td>
-                    <td>{{detail.prix}}</td>
-                </tr>
-            {% endfor %} #}
+            
 
 <div class="cart-table-area section-padding-100">
             <div class="container-fluid">
@@ -30,7 +24,7 @@
                             
                             
                             {% for detail in commande.details %}
-                               
+                            
                                 <table class="table table-bordered table-active mx-auto ">
                             <thead>
                                 <tr>

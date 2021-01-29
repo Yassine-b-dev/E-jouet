@@ -59,10 +59,12 @@
                 
                 <a href="{{ path("boutique") }}" class="cart-nav"><div class="fas fa-store-alt"></div> Boutique</a>
                 <a href="{{ path("panier") }}" class="cart-nav"><div class="fas fa-shopping-cart"></div> Panier <span>({{ app.session.get('panier')|length }})</span></a>
-                <a href="{{ path("paiement") }}" class="cart-nav"><div class="fas fa-credit-card"></div> Paiement</a>
+                
                 
                 {% if is_granted("IS_AUTHENTICATED_FULLY") %}
+                <a href="{{ path("paiement") }}" class="cart-nav"><div class="fas fa-credit-card"></div> Paiement</a>
                 {% if is_granted("ROLE_ADMIN") %}
+                    
                     <a href="{{ path("membre_index") }}" class="cart-nav "> <div class="fas fa-users"></div> Gérer les membres</a>
                     <a href="{{ path("jouet_index") }}" class="cart-nav "> <div class="fas fa-puzzle-piece"></div> Gérer les Jouets</a>
                     <a href="{{ path("commande_admin") }}" class="cart-nav "> <div class="fas fa-clipboard-list"></div> Gérer les commandes</a>

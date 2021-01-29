@@ -3,9 +3,24 @@
 {% block title %}New Membre{% endblock %}
 
 {% block body %}
-    <h1>Create new Membre</h1>
 
-    {{ include('membre/_form.html.twig') }}
-
-    <a href="{{ path('membre_index') }}">back to list</a>
+    <div class="cart-table-area section-padding-100">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12 ">
+                    <div class="cart-title mt-50">
+                        <h2 class="text-center">Ajouter un membre</h2>
+                    </div>
+                    
+                </div>
+                <div class="col-3 mx-auto">
+                    {{ include('membre/_form.html.twig', {'button_label': 'Ajouter'}) }}
+                    <div class="amado-btn-group mt-30 mb-70">
+                            <a href="{{ path('membre_index') }}" class="btn amado-btn w-100 mb-70">Retour à la liste</a>
+                        </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

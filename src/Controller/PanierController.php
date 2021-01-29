@@ -31,9 +31,7 @@ class PanierController extends AbstractController
 
             $jouet = $jr->find($ligne["jouet"]->getId());
 
-            if($jouet = 0){
-
-            }
+            
 
         }
         }
@@ -204,7 +202,7 @@ class PanierController extends AbstractController
         $em->flush();
         $session->remove("panier");
         $this->addFlash("success", "Votre commande a bien été enregistrée");
-        return $this->redirectToRoute("boutique");
+        return $this->redirectToRoute("commande", ["id" => $cmd->getId()]);
     }
 
 

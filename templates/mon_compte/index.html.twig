@@ -4,40 +4,68 @@
 
 {% block body %}
 
-    <h1>Compte n°{{app.user.id}}({{app.user.pseudo}})</h1>
-    {% for type, messages in app.flashes %}
-				<div class="alert alert-{{ type }}">
-					{% for msg in messages %}
-						{{ msg|raw }}
-					{% endfor %}
-				</div>
-			{% endfor %}
-    {% for commande in app.user.commandes %}
-        <table class="table">
-        <thead>
-            <tr>
-                <th>n°commande</th>
-                <th>Date de la commande</th>
-                <th>Total</th>
-                <th>Etat de la commande</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>{{commande.id}}</td>
-                <td>{{commande.dateEnregistrement|date("d/m/Y")}}</td>
-                <td>{{commande.montant}} €</td>
-                <td>{{commande.etat}}</td>
-                <td>
-                    <a href="{{ path("commande", {"id": commande.id}) }}">
-                                <i class="fa fa-book"></i>
-                            </a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    {% endfor %}
-    
-
+<div class="cart-table-area section-padding-100">
+    <div class="container-fluid">
+        {% for type, messages in app.flashes %}
+			<div class="alert alert-{{ type }}">
+				{% for msg in messages %}
+					{{ msg|raw }}
+				{% endfor %}
+            </div>
+		{% endfor %}
+            
+        <div class="row">
+            <div class="col-12 ">
+                        
+                <div class="cart-title">
+                    <h2>Compte n°{{app.user.id}} {{app.user.pseudo}}</h2>
+                </div>
+                <div>
+                    <p>Nom : {{app.user.nom}}</p>
+                    <p>Prénom : {{app.user.prenom}}</p>
+                    <p>Vous êtes {% if is_granted("ROLE_ADMIN") %} Administrateur {% else %}
+                        Client{% endif %}</p>
+                </div>
+            </div>
+            {% if is_granted("ROLE_ADMIN") %}
+            
+            {% else %}
+                <div class="col-5">
+                <div class="cart-title">
+                    <h3>Vos commandes</h3>
+                </div>
+                <table class="table table-striped">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>n°commande</th>
+                            <th>Date de la commande</th>
+                            <th>Total</th>
+                            <th>Etat de la commande</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for commande in app.user.commandes %}
+                        <tr>
+                            <td>{{commande.id}}</td>
+                            <td>{{commande.dateEnregistrement|date("d/m/Y")}}</td>
+                            <td>{{commande.montant}} €</td>
+                            <td>{{commande.etat}}</td>
+                            <td>
+                                <a href="{{ path("commande", {"id": commande.id}) }}">
+                                            <i class="fa fa-book"></i>
+                                        </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                
+            </div>
+            
+            {% endif %}
+            
+        </div>
+    </div>
+</div>
 {% endblock %}

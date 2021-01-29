@@ -3,52 +3,75 @@
 {% block title %}Membre{% endblock %}
 
 {% block body %}
-    <h1>Membre</h1>
+    <div class="cart-table-area section-padding-100">
+            <div class="container-fluid">
+            {% for type, messages in app.flashes %}
+				<div class="alert alert-{{ type }}">
+					{% for msg in messages %}
+						{{ msg|raw }}
+					{% endfor %}
+				</div>
+			{% endfor %}
+                <div class="row">
+                    <div class="col-12 col-lg-8">
+                        <div class="cart-title mt-50">
+                            <h2>Détails membres n°{{membre.id}}</h2>
+                        </div>
+                        <div class="cart-table clearfix">
+                            <table class="table table-striped table-responsive">
+                                <tbody>
+                                    <tr>
+                                        <th>Id</th>
+                                        <td>{{ membre.id }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Pseudo</th>
+                                        <td>{{ membre.pseudo }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Roles</th>
+                                        <td>{{ membre.roles ? membre.roles|json_encode : '' }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Nom</th>
+                                        <td>{{ membre.nom }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Prenom</th>
+                                        <td>{{ membre.prenom }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Email</th>
+                                        <td>{{ membre.email }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Adresse</th>
+                                        <td>{{ membre.adresse }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Cp</th>
+                                        <td>{{ membre.cp }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Ville</th>
+                                        <td>{{ membre.ville }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-4">
+                        <div class="amado-btn-group mt-30 mb-70">
+                            <a href="{{ path('membre_index') }}" class="btn amado-btn w-100 mb-70">Retour à la liste des membres</a>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ membre.id }}</td>
-            </tr>
-            <tr>
-                <th>Pseudo</th>
-                <td>{{ membre.pseudo }}</td>
-            </tr>
-            <tr>
-                <th>Roles</th>
-                <td>{{ membre.roles ? membre.roles|json_encode : '' }}</td>
-            </tr>
-            <tr>
-                <th>Nom</th>
-                <td>{{ membre.nom }}</td>
-            </tr>
-            <tr>
-                <th>Prenom</th>
-                <td>{{ membre.prenom }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ membre.email }}</td>
-            </tr>
-            <tr>
-                <th>Adresse</th>
-                <td>{{ membre.adresse }}</td>
-            </tr>
-            <tr>
-                <th>Cp</th>
-                <td>{{ membre.cp }}</td>
-            </tr>
-            <tr>
-                <th>Ville</th>
-                <td>{{ membre.ville }}</td>
-            </tr>
-        </tbody>
-    </table>
+                                <a href="{{ path('membre_edit', {'id': membre.id}) }} " class="btn amado-btn w-100 mb-70">Modifier le membre</a>
 
-    <a href="{{ path('membre_index') }}">back to list</a>
-
-    <a href="{{ path('membre_edit', {'id': membre.id}) }}">edit</a>
-
-    {{ include('membre/_delete_form.html.twig') }}
+                                {{ include('membre/_delete_form.html.twig') }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ##### Main Content Wrapper End ##### -->
 {% endblock %}
