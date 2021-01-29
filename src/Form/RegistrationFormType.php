@@ -21,7 +21,16 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        ->add('pseudo')
+        ->add('pseudo', TextType::class, [
+            "constraints" => [
+                new Length([
+                    "min" => 4,
+                    "minMessage" => "Le pseudo doit comporter au moins 4 caractères",
+                    "max" => 10,
+                    "maxMessage" => "Le pseudo ne peut pas comporter plus de 10 caractères"
+                ])
+            ]
+        ])
         
         ->add('password', RepeatedType::class, [
             'type' => PasswordType::class,
