@@ -9,6 +9,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 
 class MembreType extends AbstractType
 {
@@ -36,7 +37,10 @@ class MembreType extends AbstractType
             ->add('nom', TextType::class, [
                 "required" => false
             ])
-            ->add('email')
+            ->add('email', EmailType::class, [
+                "label" => "Prénom",
+                "required" => false
+            ])
             ->add('adresse')
             ->add('cp', TextType::class, [
                 "label" => "Code postal"

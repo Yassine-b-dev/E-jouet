@@ -70,12 +70,19 @@ class MembreController extends AbstractController
     /**
      * @Route("/{id}/edit", name="membre_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Membre $membre): Response
+    public function edit(Request $request, Membre $membre, UserPasswordEncoderInterface $passwordEncoder): Response
     {
         $form = $this->createForm(MembreType::class, $membre);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+             // encode the plain password
+            $membre->setPassword(
+                $passwordEncoder->encodePassword(
+                    $membre,
+                    $form->get('password')->getData()
+                )
+            );
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('membre_index');
